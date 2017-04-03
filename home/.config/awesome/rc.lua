@@ -450,7 +450,8 @@ awful.rules.rules = {
           "Wpa_gui",
           "pinentry",
           "veromix",
-          "xtightvncviewer"},
+          "xtightvncviewer",
+          "mpv"},
 
         name = {
           "Event Tester",  -- xev.
