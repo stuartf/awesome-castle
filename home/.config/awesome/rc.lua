@@ -451,7 +451,8 @@ awful.rules.rules = {
           "pinentry",
           "veromix",
           "xtightvncviewer",
-          "mpv"},
+          "mpv",
+        },
 
         name = {
           "Event Tester",  -- xev.
@@ -461,6 +462,15 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
+
+    -- Have keybase float under the taskbar
+    { rule_any = { class = {
+        "Keybase",
+      }
+    }, properties = {
+      floating = true,
+      callback = function(c) awful.placement.top_right(c) end,
+  }},
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "dialog" }
