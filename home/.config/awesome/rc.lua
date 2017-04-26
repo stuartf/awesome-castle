@@ -9,6 +9,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local vicious = require("vicious")
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -197,6 +198,21 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
+    -- Create a CPU widget
+    cpuwidget = wibox.widget.graph()
+      cpuwidget:set_width(20)
+      cpuwidget:set_color(gears.color.create_solid_pattern("#3333ff"))
+      vicious.cache(vicious.widgets.cpu)
+      cpuwidget.opactity = "1"
+      vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 5)
+
+    memwidget = wibox.widget.graph()
+      memwidget:set_width(20)
+      memwidget:set_color(gears.color.create_linear_pattern("0,0:0,20:1.0,#00ff00:0,#ff0000"))
+      vicious.cache(vicious.widgets.mem)
+      memwidget.opacity = "1"
+      vicious.register(memwidget, vicious.widgets.mem, "$1", 11)
+
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
@@ -212,6 +228,8 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            cpuwidget,
+            memwidget,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
