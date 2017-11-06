@@ -11,6 +11,9 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
 
+-- Load streetturtle batteryarc widget
+require("streetturtle-widgets.batteryarc-widget.batteryarc")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -228,6 +231,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            batteryarc_widget,
             cpuwidget,
             memwidget,
             mykeyboardlayout,
