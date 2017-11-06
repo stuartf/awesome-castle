@@ -494,6 +494,10 @@ awful.rules.rules = {
       callback = function(c) awful.placement.top_right(c) end,
   }},
 
+    -- Default terminals to be transparent, we'll make the active one opaque with a signal
+    { rule_any = {class = { "X-terminal-emulator" }
+        }, properties = { opacity = 0.8 }
+    },
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "dialog" }
       }, properties = { titlebars_enabled = true }
@@ -572,12 +576,38 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("focus", function(c)
+  if c.class == "X-terminal-emulator" then
+    c.opacity = 1.0
+  end
+end)
+
+client.connect_signal("unfocus", function(c)
+  if c.class == "X-terminal-emulator" then
+    c.opacity = 0.8
+  end
+end)
+
 -- }}}
 -- {{{ Set transparent notifications
 naughty.config.presets.normal.opacity = 0.8
 naughty.config.presets.low.opacity = 0.8
 naughty.config.presets.critical.opacity = 0.8
 -- }}}
+
+-- {{{ Set default icon size for notifications
+naughty.config.notify_callback = function(args)
+    if args.icon then
+        args.icon_size = 100
+    end
+    return args
+end
+-- }}}
+
+-- Put notifications on first screen top right
+naughty.config.defaults.screen = 1
+naughty.config.defaults.position = "top_right"
 
 -- {{{ Use dex for xdg autostart
 awful.spawn.with_shell("~/.config/awesome/dex -a -e Awesome")
