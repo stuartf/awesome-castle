@@ -601,6 +601,9 @@ naughty.config.notify_callback = function(args)
     if args.icon then
         args.icon_size = 100
     end
+    if string.len(args.text) > 140 then
+      args.text = string.sub(args.text, 1, 140)
+    end
     return args
 end
 -- }}}
