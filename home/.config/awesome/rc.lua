@@ -277,6 +277,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
+    -- Multimedia
+   awful.key({ }, "XF86AudioRaiseVolume", function ()
+       awful.util.spawn("pactl set-sink-volume '@DEFAULT_SINK@' +5%", false) end),
+   awful.key({ }, "XF86AudioLowerVolume", function ()
+       awful.util.spawn("pactl set-sink-volume '@DEFAULT_SINK@' -5%", false) end),
+   awful.key({ }, "XF86AudioMute", function ()
+       awful.util.spawn("pactl set-sink-mute '@DEFAULT_SINK@' toggle", false) end),
+
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
