@@ -500,7 +500,14 @@ awful.rules.rules = {
     }, properties = {
       floating = true,
       callback = function(c) awful.placement.top_right(c) end,
-  }},
+    }},
+    -- Teams notifications should float top right and not steal focus
+    { rule = { name = "Microsoft Teams Notification" },
+      properties = {
+        floating = true,
+        focus = false,
+        callback = function(c) awful.placement.top_right(c) end,
+    }},
 
     -- Default terminals to be transparent, we'll make the active one opaque with a signal
     { rule_any = {class = { "X-terminal-emulator" }
