@@ -1,0 +1,9 @@
+[Unit]
+Description=X Session Lock
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock
+
+[Install]
+WantedBy=xsession.target
