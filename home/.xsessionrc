@@ -3,4 +3,3 @@ export __GL_SYNC_TO_VBLANK=1
 export GTK_IM_MODULE=ibus
 systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS
 systemctl --no-block --user start xsession.target
-[[ -x "/usr/bin/nvidia-settings" ]] && /usr/bin/nvidia-settings --load-config-only --config=~/.nvidia-settings-rc &

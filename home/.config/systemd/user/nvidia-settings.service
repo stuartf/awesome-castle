@@ -1,0 +1,11 @@
+[Unit]
+Description=Load Nvidia Settings
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nvidia-settings --load-config-only --config=~/.nvidia-settings-rc
+RemainAfterExit=true
+
+[Install]
+WantedBy=xsession.target
