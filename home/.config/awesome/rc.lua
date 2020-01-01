@@ -43,7 +43,6 @@ end
 -- }}}
 
 awful.spawn("setxkbmap -option compose:ralt")
-awful.spawn.with_shell("compton --backend glx --dbus &")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
@@ -628,5 +627,5 @@ naughty.config.defaults.screen = 1
 naughty.config.defaults.position = "top_right"
 
 -- {{{ Use dex for xdg autostart
-awful.spawn.with_shell("~/.config/awesome/dex -a -e Awesome")
+awful.spawn.with_shell("/usr/bin/dex -a -e Awesome")
 -- }}}
