@@ -12,7 +12,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local vicious = require("vicious")
 
 -- Load streetturtle batteryarc widget
-require("streetturtle-widgets.batteryarc-widget.batteryarc")
+local batteryarc_widget = require("streetturtle-widgets.batteryarc-widget.batteryarc")
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -230,7 +230,12 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            batteryarc_widget,
+            batteryarc_widget({
+              warning_msg_title = 'Battery Level Critical',
+              warning_msg_text = 'Plug in or shutdown soon!',
+              warning_msg_position = 'top_right',
+              warning_msg_icon = '/usr/share/pixmaps/faces/lightning.jpg'
+            }),
             cpuwidget,
             memwidget,
             mykeyboardlayout,
