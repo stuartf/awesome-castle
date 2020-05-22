@@ -215,35 +215,41 @@ awful.screen.connect_for_each_screen(function(s)
       memwidget.opacity = "1"
       vicious.register(memwidget, vicious.widgets.mem, "$1", 11)
 
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    awful.spawn.easy_async('laptop-detect', function(out, err, reason, code)
+      if code == 0 then
+        batterywidget = batteryarc_widget({
+          warning_msg_title = 'Battery Level Critical',
+          warning_msg_text = 'Plug in or shutdown soon!',
+          warning_msg_position = 'top_right',
+          warning_msg_icon = '/usr/share/pixmaps/faces/lightning.jpg'
+        })
+      end
 
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            batteryarc_widget({
-              warning_msg_title = 'Battery Level Critical',
-              warning_msg_text = 'Plug in or shutdown soon!',
-              warning_msg_position = 'top_right',
-              warning_msg_icon = '/usr/share/pixmaps/faces/lightning.jpg'
-            }),
-            cpuwidget,
-            memwidget,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
-    }
+      -- Create the wibox
+      s.mywibox = awful.wibar({ position = "top", screen = s })
+
+      -- Add widgets to the wibox
+      s.mywibox:setup {
+          layout = wibox.layout.align.horizontal,
+          { -- Left widgets
+              layout = wibox.layout.fixed.horizontal,
+              mylauncher,
+              s.mytaglist,
+              s.mypromptbox,
+          },
+          s.mytasklist, -- Middle widget
+          { -- Right widgets
+              layout = wibox.layout.fixed.horizontal,
+              batterywidget,
+              cpuwidget,
+              memwidget,
+              mykeyboardlayout,
+              wibox.widget.systray(),
+              mytextclock,
+              s.mylayoutbox,
+          },
+      }
+    end)
 end)
 -- }}}
 
