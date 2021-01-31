@@ -3,7 +3,7 @@ Description=Compositing manager
 PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/compton --backend glx --dbus --unredir-if-possible 
+ExecStart=/usr/bin/picom --dbus
 
 [Install]
 WantedBy=xsession.target
