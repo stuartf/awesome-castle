@@ -119,6 +119,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+local month_calendar = awful.widget.calendar_popup.month({
+  spacing = 0,
+  margin = 0,
+  start_sunday = true
+})
+month_calendar:attach( mytextclock, "tr" )
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -639,7 +646,3 @@ end
 -- Put notifications on first screen top right
 naughty.config.defaults.screen = 1
 naughty.config.defaults.position = "top_right"
-
--- {{{ Use dex for xdg autostart
-awful.spawn.with_shell("/usr/bin/dex -a -e Awesome")
--- }}}
